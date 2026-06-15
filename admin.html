@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Food Express</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Navbar (Admin variant) -->
+    <nav class="navbar navbar-expand-lg sticky-top bg-dark text-white" data-bs-theme="dark">
+        <div class="container">
+            <a class="navbar-brand text-white" href="index.html"><i class="fas fa-utensils"></i> Food Express Admin</a>
+            <div class="d-flex ms-auto">
+                <a href="#" class="btn btn-outline-light btn-sm" onclick="handleAdminLogout(event)">Logout</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Dashboard -->
+    <section class="container py-5">
+        
+        <!-- Tabs -->
+        <ul class="nav nav-tabs mb-4" id="adminTabs" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active fw-bold" id="orders-tab" data-bs-toggle="tab" data-bs-target="#orders-tab-pane" type="button" role="tab" aria-controls="orders-tab-pane" aria-selected="true">Orders Dashboard</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link fw-bold" id="menu-tab" data-bs-toggle="tab" data-bs-target="#menu-tab-pane" type="button" role="tab" aria-controls="menu-tab-pane" aria-selected="false">Manage Items</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link fw-bold" id="settings-tab" data-bs-toggle="tab" data-bs-target="#settings-tab-pane" type="button" role="tab" aria-controls="settings-tab-pane" aria-selected="false">Settings</button>
+            </li>
+        </ul>
+
+        <div class="tab-content" id="adminTabsContent">
+            <!-- Orders Tab -->
+            <div class="tab-pane fade show active" id="orders-tab-pane" role="tabpanel" aria-labelledby="orders-tab" tabindex="0">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h3 class="fw-bold">Orders Dashboard</h3>
+                    <button class="btn btn-danger btn-sm" onclick="clearAllOrders()">Clear All Orders</button>
+                </div>
+                
+                <h5 class="fw-bold mt-4 mb-3 text-primary"><i class="fas fa-chair"></i> Dine-In Orders</h5>
+                <div class="card shadow-sm border-0 bg-body-tertiary mb-4">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover align-middle">
+                                <thead class="table-dark">
+                                    <tr>
+                                        <th>Order ID</th>
+                                        <th>Date</th>
+                                        <th>Customer</th>
+                                        <th>Items</th>
+                                        <th>Total</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="admin-dinein-orders-body">
+                                    <!-- Populated by admin.js -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <h5 class="fw-bold mt-4 mb-3 text-primary"><i class="fas fa-motorcycle"></i> Delivery Orders</h5>
+                <div class="card shadow-sm border-0 bg-body-tertiary mb-4">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover align-middle">
+                                <thead class="table-dark">
+                                    <tr>
+                                        <th>Order ID</th>
+                                        <th>Date</th>
+                                        <th>Customer</th>
+                                        <th>Items</th>
+                                        <th>Total</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="admin-delivery-orders-body">
+                                    <!-- Populated by admin.js -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Menu Management Tab -->
+            <div class="tab-pane fade" id="menu-tab-pane" role="tabpanel" aria-labelledby="menu-tab" tabindex="0">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h3 class="fw-bold">Menu Items</h3>
+                    <button class="btn btn-success btn-sm" onclick="openItemModal()">
+                        <i class="fas fa-plus"></i> Add New Item
+                    </button>
+                </div>
+                <div class="card shadow-sm border-0 bg-body-tertiary">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover align-middle">
+                                <thead class="table-dark">
+                                    <tr>
+                                        <th>Image</th>
+                                        <th>Name</th>
+                                        <th>Category</th>
+                                        <th>Price</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="admin-menu-body">
+                                    <!-- Populated by admin.js -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Settings Tab -->
+            <div class="tab-pane fade" id="settings-tab-pane" role="tabpanel" aria-labelledby="settings-tab" tabindex="0">
+                <div class="row">
+                    <!-- Delivery & Tax Settings -->
+                    <div class="col-md-6 mb-4">
+                        <div class="card shadow-sm border-0 bg-body-tertiary">
+                            <div class="card-body">
+                                <h4 class="fw-bold mb-4">Fees & Taxes</h4>
+                                <form id="settings-form" onsubmit="handleSaveSettings(event)">
+                                    <div class="mb-3">
+                                        <label class="form-label">Tax Rate (%)</label>
+                                        <input type="number" class="form-control" id="tax-rate" min="0" step="0.1" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Delivery Fee (₹)</label>
+                                        <input type="number" class="form-control" id="delivery-fee" min="0" required>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Save Settings</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Categories Management -->
+                    <div class="col-md-6 mb-4">
+                        <div class="card shadow-sm border-0 bg-body-tertiary">
+                            <div class="card-body">
+                                <h4 class="fw-bold mb-4">Manage Categories</h4>
+                                <form id="category-form" onsubmit="handleAddCategory(event)" class="d-flex mb-3">
+                                    <input type="text" class="form-control me-2" id="new-category" placeholder="New Category Name" required>
+                                    <button type="submit" class="btn btn-success">Add</button>
+                                </form>
+                                <ul class="list-group list-group-flush bg-transparent" id="admin-categories-list">
+                                    <!-- Populated by admin.js -->
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Add/Edit Item Modal -->
+    <div class="modal fade" id="itemModal" tabindex="-1" aria-labelledby="itemModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content bg-body-tertiary">
+          <form id="item-form" onsubmit="handleSaveItem(event)">
+              <div class="modal-header border-bottom border-secondary">
+                <h5 class="modal-title fw-bold" id="itemModalLabel">Add Menu Item</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <input type="hidden" id="item-id">
+                
+                <div class="mb-3">
+                    <label class="form-label">Item Name</label>
+                    <input type="text" class="form-control" id="item-name" required>
+                </div>
+                
+                <div class="mb-3">
+                    <label class="form-label">Category</label>
+                    <select class="form-select" id="item-category" required>
+                        <!-- Populated dynamically by admin.js -->
+                    </select>
+                </div>
+                
+                <div class="mb-3">
+                    <label class="form-label">Price (₹)</label>
+                    <input type="number" class="form-control" id="item-price" min="1" required>
+                </div>
+                
+                <div class="mb-3">
+                    <label class="form-label">Description</label>
+                    <textarea class="form-control" id="item-desc" rows="2" required></textarea>
+                </div>
+                
+                <div class="mb-3">
+                    <label class="form-label">Image URL (Optional)</label>
+                    <input type="url" class="form-control" id="item-image" placeholder="https://unsplash.com/...">
+                </div>
+              </div>
+              <div class="modal-footer border-top border-secondary">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="submit" class="btn btn-primary">Save Item</button>
+              </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/menu.js"></script>
+    <script src="js/admin.js"></script>
+</body>
+</html>

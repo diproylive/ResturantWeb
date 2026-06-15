@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Express - Order Online</title>
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Food Express offers the best pizza, burgers, and pasta in town. Order online now with our chatbot assistant!">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="fas fa-utensils"></i> Food Express
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item"><a class="nav-link active" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="menu.html">Menu</a></li>
+                    <li class="nav-item"><a class="nav-link" href="orders.html">Orders</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                    
+                    <li class="nav-item dropdown ms-3">
+                        <a class="nav-link dropdown-toggle d-flex align-items-center justify-content-center" href="#" id="settingsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" title="Settings" style="width: 40px; height: 40px; border-radius: 50%; background: var(--card-bg); box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+                            <i class="fas fa-cog"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end shadow border-0" aria-labelledby="settingsDropdown">
+                            <li>
+                                <button class="dropdown-item d-flex align-items-center gap-2" id="theme-toggle-btn" onclick="setTimeout(toggleTheme, 0)">
+                                    <i id="theme-icon" class="fas fa-moon"></i> Toggle Theme
+                                </button>
+                            </li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li>
+                                <button class="dropdown-item d-flex align-items-center gap-2" onclick="openAdminLogin()">
+                                    <i class="fas fa-user-shield"></i> Admin Login
+                                </button>
+                            </li>
+                        </ul>
+                    </li>
+                    
+                    <li class="nav-item ms-3">
+                        <a class="btn btn-primary position-relative d-flex align-items-center gap-2" href="cart.html">
+                            <i class="fas fa-shopping-cart"></i> Cart
+                            <span id="cart-badge" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger d-none">0</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero d-flex align-items-center justify-content-center text-center text-white position-relative" style="background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1600&q=80') center/cover; height: 80vh;">
+        <div class="container fade-in-up">
+            <span class="badge bg-primary px-3 py-2 rounded-pill mb-3 shadow">Delicious & Fast</span>
+            <h1 class="display-3 fw-bold mb-4">Craving Something <span class="text-primary">Extraordinary?</span></h1>
+            <p class="lead mb-5 mx-auto" style="max-width: 600px;">Experience the best local food delivered right to your doorstep. Order online today!</p>
+            <div class="d-flex justify-content-center gap-3">
+                <a href="menu.html" class="btn btn-primary btn-lg rounded-pill px-5 py-3 shadow">Order Now</a>
+                <a href="chatbot.html" class="btn btn-light btn-lg rounded-pill px-5 py-3 text-dark fw-bold shadow"><i class="fas fa-robot text-primary me-2"></i>Ask Chatbot</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Featured Section -->
+    <section class="container py-5 mt-4">
+        <div class="text-center mb-5 fade-in-up">
+            <h2 class="fw-bold">Featured Dishes</h2>
+            <p class="text-muted">Handpicked favorites by our chef</p>
+        </div>
+        
+        <div class="row g-4">
+            <div class="col-md-4 fade-in-up delay-100">
+                <div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden bg-body-tertiary">
+                    <img src="https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500&q=80" class="card-img-top" alt="Pizza" style="height: 200px; object-fit: cover;">
+                    <div class="card-body d-flex flex-column p-4">
+                        <span class="badge bg-danger align-self-start mb-2">Bestseller</span>
+                        <h5 class="card-title fw-bold">Margherita Pizza</h5>
+                        <p class="card-text text-muted flex-grow-1">Classic pizza with fresh mozzarella, basil, and our signature tomato sauce.</p>
+                        <div class="d-flex justify-content-between align-items-center mt-3">
+                            <span class="price">₹299</span>
+                            <a href="menu.html" class="btn btn-outline-primary btn-sm">Order Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-4 fade-in-up delay-200">
+                <div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden bg-body-tertiary">
+                    <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=500&q=80" class="card-img-top" alt="Burger" style="height: 200px; object-fit: cover;">
+                    <div class="card-body d-flex flex-column p-4">
+                        <span class="badge bg-warning text-dark align-self-start mb-2">Chef's Special</span>
+                        <h5 class="card-title fw-bold">Double Cheese Burger</h5>
+                        <p class="card-text text-muted flex-grow-1">Two smashed beef patties, cheddar cheese, caramelized onions, and house sauce.</p>
+                        <div class="d-flex justify-content-between align-items-center mt-3">
+                            <span class="price">₹199</span>
+                            <a href="menu.html" class="btn btn-outline-primary btn-sm">Order Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-4 fade-in-up delay-300">
+                <div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden bg-body-tertiary">
+                    <img src="https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?w=500&q=80" class="card-img-top" alt="Pasta" style="height: 200px; object-fit: cover;">
+                    <div class="card-body d-flex flex-column p-4">
+                        <span class="badge bg-success align-self-start mb-2">New</span>
+                        <h5 class="card-title fw-bold">Penne Alfredo</h5>
+                        <p class="card-text text-muted flex-grow-1">Creamy white sauce pasta with garlic and parmesan.</p>
+                        <div class="d-flex justify-content-between align-items-center mt-3">
+                            <span class="price">₹229</span>
+                            <a href="menu.html" class="btn btn-outline-primary btn-sm">Order Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="text-center mt-5 fade-in-up delay-300">
+            <a href="menu.html" class="btn btn-primary px-5 py-2 rounded-pill shadow">View Full Menu</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="text-center mt-auto">
+        <div class="container py-4 border-top">
+            <h4 class="fw-bold mb-3"><i class="fas fa-utensils text-primary"></i> Food Express</h4>
+            <p class="text-muted mb-4">Serving happiness daily. Follow us on social media!</p>
+            <div class="d-flex justify-content-center gap-3 mb-4">
+                <a href="#" class="text-muted fs-4"><i class="fab fa-facebook"></i></a>
+                <a href="#" class="text-muted fs-4"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="text-muted fs-4"><i class="fab fa-twitter"></i></a>
+            </div>
+            <p class="text-muted small mb-0">&copy; 2026 Food Express. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- App JS -->
+    <script src="js/app.js"></script>
+</body>
+</html>

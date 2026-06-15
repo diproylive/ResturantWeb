@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot - Food Express</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .chat-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            height: 75vh;
+        }
+
+        .chat-header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .chat-messages {
+            flex-grow: 1;
+            padding: 20px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .message {
+            max-width: 75%;
+            padding: 12px 18px;
+            border-radius: 18px;
+            line-height: 1.4;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .message.bot {
+            background-color: var(--border-color);
+            color: var(--text-color);
+            align-self: flex-start;
+            border-bottom-left-radius: 4px;
+        }
+
+        .message.user {
+            background-color: var(--primary-color);
+            color: white;
+            align-self: flex-end;
+            border-bottom-right-radius: 4px;
+        }
+
+        .chat-input-area {
+            padding: 15px 20px;
+            background-color: var(--card-bg);
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            gap: 10px;
+        }
+
+        .chat-input {
+            flex-grow: 1;
+            border: 1px solid var(--border-color);
+            border-radius: 50px;
+            padding: 10px 20px;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            outline: none;
+        }
+
+        .chat-input:focus {
+            border-color: var(--primary-color);
+        }
+
+        .btn-circle {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-send {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .btn-send:hover {
+            background-color: var(--primary-hover);
+            transform: scale(1.05);
+        }
+
+        .btn-mic {
+            background-color: var(--border-color);
+            color: var(--text-color);
+        }
+
+        .btn-mic.recording {
+            background-color: #dc3545;
+            color: white;
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.1);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .chatbot-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .chatbot-option {
+            background-color: transparent;
+            border: 1px solid var(--primary-color);
+            color: var(--primary-color);
+            padding: 5px 12px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .chatbot-option:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        @media (max-width: 768px) {
+            .chat-container {
+                height: calc(100vh - 120px);
+                border-radius: 12px;
+            }
+            .chat-input-area {
+                padding: 10px;
+                gap: 8px;
+            }
+            .chat-input {
+                min-width: 0; /* Prevents overflow in flexbox */
+                padding: 10px 15px;
+            }
+            .btn-circle {
+                width: 42px;
+                height: 42px;
+                flex-shrink: 0; /* Prevent buttons from shrinking */
+            }
+            .chat-messages {
+                padding: 15px;
+            }
+            .message {
+                max-width: 85%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html"><i class="fas fa-utensils"></i> Food Express</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="menu.html">Menu</a></li>
+                    <li class="nav-item"><a class="nav-link" href="orders.html">Orders</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                    <li class="nav-item dropdown ms-3">
+                        <a class="nav-link dropdown-toggle d-flex align-items-center justify-content-center" href="#"
+                            id="settingsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"
+                            title="Settings"
+                            style="width: 40px; height: 40px; border-radius: 50%; background: var(--card-bg); box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+                            <i class="fas fa-cog"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end shadow border-0" aria-labelledby="settingsDropdown">
+                            <li>
+                                <button class="dropdown-item d-flex align-items-center gap-2" id="theme-toggle-btn"
+                                    onclick="setTimeout(toggleTheme, 0)">
+                                    <i id="theme-icon" class="fas fa-moon"></i> Toggle Theme
+                                </button>
+                            </li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li>
+                                <button class="dropdown-item d-flex align-items-center gap-2"
+                                    onclick="openAdminLogin()">
+                                    <i class="fas fa-user-shield"></i> Admin Login
+                                </button>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item ms-3">
+                        <a class="btn btn-primary position-relative d-flex align-items-center gap-2" href="cart.html">
+                            <i class="fas fa-shopping-cart"></i> Cart
+                            <span id="cart-badge"
+                                class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger d-none">0</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Chatbot Section -->
+    <section class="container py-5">
+        <div class="text-center mb-4 fade-in-up">
+            <h2 class="fw-bold">AI Assistant</h2>
+            <p class="text-muted">Order food quickly by chatting with our smart assistant.</p>
+        </div>
+
+        <div class="chat-container fade-in-up delay-100">
+            <div class="chat-header">
+                <div class="bg-white rounded-circle p-2 text-primary">
+                    <i class="fas fa-robot fa-lg"></i>
+                </div>
+                <div>
+                    <h5 class="mb-0 fw-bold">FoodieBot</h5>
+                    <small style="opacity: 0.8;">Online</small>
+                </div>
+            </div>
+
+            <div class="chat-messages" id="chat-messages">
+                <!-- Messages go here -->
+            </div>
+
+            <div class="chat-input-area">
+                <button class="btn-circle btn-mic" id="mic-btn" title="Click to speak">
+                    <i class="fas fa-microphone"></i>
+                </button>
+                <input type="text" class="chat-input" id="chat-input" placeholder="Type your message..."
+                    autocomplete="off">
+                <button class="btn-circle btn-send" id="send-btn" title="Send message">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Toast Container -->
+    <div id="toast-container" class="position-fixed bottom-0 end-0 p-3" style="z-index: 1050;"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/menu.js"></script> <!-- Need menu data for ordering via bot -->
+    <script src="js/chatbot.js"></script>
+</body>
+
+</html>
