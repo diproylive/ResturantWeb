@@ -100,7 +100,7 @@ function injectAdminLoginModal() {
                 <form id="admin-login-form" onsubmit="handleAdminLogin(event)">
                   <div class="mb-3">
                     <label class="form-label small fw-bold">Email Address</label>
-                    <input type="email" class="form-control" id="admin-email" placeholder="admin@food.com" required>
+                    <input type="email" class="form-control" id="admin-email" placeholder="food123@admin.com" required>
                   </div>
                   <div class="mb-4">
                     <label class="form-label small fw-bold">Password</label>
